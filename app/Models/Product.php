@@ -19,6 +19,7 @@ class Product extends Model
      * $this->attributes['name'] - string - contains the product name
      * $this->attributes['description'] - string - contains the product description
      * $this->attributes['image'] - string - contains the product image
+     * $this->attributes['image_data'] - string|null - contains uploaded product image data
      * $this->attributes['price'] - int - contains the product price
      * $this->attributes['created_at'] - timestamp - contains the product creation date
      * $this->attributes['updated_at'] - timestamp - contains the product update date
@@ -31,7 +32,7 @@ class Product extends Model
             "name" => "required|max:255",
             "description" => "required",
             "price" => "required|numeric|gt:0",
-            'image' => 'image',
+            'image' => 'image|max:2048',
         ]);
     }
 
@@ -82,6 +83,10 @@ class Product extends Model
 
     public function getImageUrl()
     {
+        if ($this->getImageData()) {
+            return $this->getImageData();
+        }
+
         $image = $this->getImage();
 
         if (in_array($image, self::PUBLIC_IMAGES, true)) {
@@ -102,6 +107,16 @@ class Product extends Model
     public function setImage($image)
     {
         $this->attributes['image'] = $image;
+    }
+
+    public function getImageData()
+    {
+        return $this->attributes['image_data'] ?? null;
+    }
+
+    public function setImageData($imageData)
+    {
+        $this->attributes['image_data'] = $imageData;
     }
 
     public function getPrice()

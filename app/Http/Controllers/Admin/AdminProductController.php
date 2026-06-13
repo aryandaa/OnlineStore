@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdminProductController extends Controller
 {
@@ -30,11 +29,8 @@ class AdminProductController extends Controller
 
         if ($request->hasFile('image')) {
             $imageName = $newProduct->getId().".".$request->file('image')->extension();
-            Storage::disk('public')->put(
-                $imageName,
-                file_get_contents($request->file('image')->getRealPath())
-            );
             $newProduct->setImage($imageName);
+            $newProduct->setImageData($this->imageToDataUri($request));
             $newProduct->save();
         }
 
@@ -66,14 +62,19 @@ class AdminProductController extends Controller
 
         if ($request->hasFile('image')) {
             $imageName = $product->getId().".".$request->file('image')->extension();
-            Storage::disk('public')->put(
-                $imageName,
-                file_get_contents($request->file('image')->getRealPath())
-            );
             $product->setImage($imageName);
+            $product->setImageData($this->imageToDataUri($request));
         }
 
         $product->save();
         return redirect()->route('admin.product.index');
+    }
+
+    private function imageToDataUri(Request $request)
+    {
+        $file = $request->file('image');
+        $contents = file_get_contents($file->getRealPath());
+
+        return 'data:'.$file->getMimeType().';base64,'.base64_encode($contents);
     }
 }
