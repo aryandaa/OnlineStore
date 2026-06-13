@@ -74,6 +74,17 @@ class Product extends Model
         return $this->attributes['image'];
     }
 
+    public function getImageUrl()
+    {
+        $image = $this->getImage();
+
+        if (file_exists(public_path('img/'.$image))) {
+            return asset('/img/'.$image);
+        }
+
+        return asset('/storage/'.$image);
+    }
+
     public function setImage($image)
     {
         $this->attributes['image'] = $image;
