@@ -12,6 +12,18 @@
   ],
   "routes": [
     {
+      "src": "/img/(.*)",
+      "dest": "/public/img/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/storage/(.*)",
+      "dest": "/public/storage/$1"
+    },
+    {
       "src": "/(css|js|img|images|assets|storage)/(.*)",
       "dest": "/public/$1/$2"
     },

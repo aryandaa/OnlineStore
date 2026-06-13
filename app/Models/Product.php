@@ -7,6 +7,12 @@ use App\Models\Item;
 
 class Product extends Model
 {
+    private const PUBLIC_IMAGES = [
+        'game.png',
+        'safe.png',
+        'submarine.png',
+    ];
+
     /**
      * PRODUCT ATTRIBUTES
      * $this->attributes['id'] - int - contains the product primary key (id)
@@ -78,11 +84,19 @@ class Product extends Model
     {
         $image = $this->getImage();
 
+        if (in_array($image, self::PUBLIC_IMAGES, true)) {
+            return asset('/img/'.$image);
+        }
+
         if (file_exists(public_path('img/'.$image))) {
             return asset('/img/'.$image);
         }
 
-        return asset('/storage/'.$image);
+        if (file_exists(public_path('storage/'.$image))) {
+            return asset('/storage/'.$image);
+        }
+
+        return asset('/img/game.png');
     }
 
     public function setImage($image)
