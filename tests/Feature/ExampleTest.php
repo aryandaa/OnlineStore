@@ -35,6 +35,17 @@ class ExampleTest extends TestCase
         $response->assertSee('Manage Products');
     }
 
+    public function test_navbar_greets_authenticated_user(): void
+    {
+        $this->seed();
+        $client = User::where('email', 'client@onlinestore.test')->firstOrFail();
+
+        $response = $this->actingAs($client)->get(route('home.index'));
+
+        $response->assertOk();
+        $response->assertSee('Hai, '.$client->getName());
+    }
+
     public function test_client_can_purchase_cart_products(): void
     {
         $this->seed();
