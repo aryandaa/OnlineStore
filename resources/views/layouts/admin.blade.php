@@ -8,6 +8,36 @@
     crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <link href="{{ asset('/css/admin.css') }}" rel="stylesheet" />
+  <style>
+    .copyright {
+      background-color: #1a252f;
+    }
+
+    .fixed {
+      -ms-flex: 0 0 250px;
+      flex: 0 0 250px;
+    }
+
+    .content-grey {
+      background-color: #f8f9fc;
+    }
+
+    .img-profile {
+      height: 2rem;
+      width: 2rem;
+    }
+
+    .profile-font {
+      color: #858796 !important;
+      font-size: 80%;
+      font-weight: 400;
+    }
+
+    .card-header {
+      background-color: #f8f9fc;
+      border-bottom: 1px solid #e3e6f0;
+    }
+  </style>
   <title>@yield('title', 'Admin - Online Store')</title>
 </head>
 
