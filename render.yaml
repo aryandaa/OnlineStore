@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: online-store-aryanda
+    runtime: php
+    repo: https://github.com/aryandaa/OnlineStore
+    region: sin
+    plan: free
+    buildCommand: composer install --no-dev --optimize-autoloader
+    startCommand: heroku-php-apache2 public/
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
