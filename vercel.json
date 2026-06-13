@@ -4,7 +4,7 @@
     "builds": [
         {
             "src": "api/index.php",
-            "use": "vercel-php@0.7.1"
+            "use": "vercel-php-v82"
         },
         {
             "src": "public/**",
@@ -20,5 +20,8 @@
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
-    ]
+    ],
+    "config": {
+        "maxLambdaSize": "50mb"
+    }
 }
