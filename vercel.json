@@ -20,8 +20,5 @@
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
-    ],
-    "config": {
-        "maxLambdaSize": "50mb"
-    }
+    ]
 }
